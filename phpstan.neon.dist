@@ -1,0 +1,15 @@
+parameters:
+    phpVersion: 80200
+    level: 1
+    paths:
+        - config
+        - db
+        - src
+        - tests
+    scanDirectories:
+        - includes
+    ignoreErrors:
+        -
+            message: '#.*#'
+            path: config/config.php*
+            reportUnmatched: false

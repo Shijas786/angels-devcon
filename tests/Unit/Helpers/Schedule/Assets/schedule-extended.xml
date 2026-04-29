@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<schedule
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="https://c3voc.de/schedule/schema.xsd"
+>
+    <generator name="Engelsystem" version="1.2.3"/>
+    <version>some-version-string</version>
+    <conference>
+        <title>Test Event</title>
+        <acronym>test-3</acronym>
+        <start>2042-01-01T01:00:00+02:00</start>
+        <end>2042-01-01T22:59:00+02:00</end>
+        <days>1</days>
+        <timeslot_duration>00:15</timeslot_duration>
+        <base_url>https://foo.bar/baz/schedule/</base_url>
+        <logo>https://foo.bar/baz.png</logo>
+        <url>https://foo.bar/</url>
+        <time_zone_name>Europe/Berlin</time_zone_name>
+        <color primary="#abcdef" background="#aabbcc" customColor="#s011e7"/>
+        <track name="Testing" color="#dead55" slug="testing"/>
+    </conference>
+    <day index='1' date='2042-01-01' start='2042-01-01T01:00:00+02:00' end='2042-01-01T22:59:00+02:00'>
+        <room name='Rooming' guid="bf5f1132-82bd-4da2-bbe0-1abbf8daf4ab">
+            <event guid='e427cfa9-9ba1-4b14-a99f-bce83ffe5a1c' id='1337'>
+                <date>2042-01-01T12:30:00+02:00</date>
+                <title>Foo Bar Test</title>
+                <subtitle>Some sub</subtitle>
+                <start>12:30</start>
+                <duration>00:30</duration>
+                <room>Rooming</room>
+                <slug>some-3-test</slug>
+                <recording>
+                    <license>WTFPL</license>
+                    <optout>false</optout>
+                    <url>https://recorder.test/some-3-test/recorded</url>
+                    <link>https://recorder.test/some-3-test</link>
+                </recording>
+                <video_download_url>https://foo.bar/baz/schedule/ipsum/recording.mp4</video_download_url>
+                <track>Testing</track>
+                <type>Talk</type>
+                <language>de</language>
+                <abstract>Foo bar is da best</abstract>
+                <description>Any describing stuff?</description>
+                <url>https://foo.bar/baz/schedule/ipsum</url>
+                <feedback_url>https://foo.bar/baz/schedule/ipsum#feedback</feedback_url>
+                <origin_url>https://some.example/event/ipsum</origin_url>
+                <logo>https://lorem.ipsum/foo/bar.png</logo>
+                <persons>
+                    <person id='1234'>Some Person</person>
+                    <person id='1337'>Another Person</person>
+                </persons>
+                <links>
+                    <link href="https://foo.bar">Some Foo Bar</link>
+                    <link href="https://example.com">Another example</link>
+                </links>
+                <attachments>
+                    <attachment href="https://foo.bar/stuff.pdf">A PDF File</attachment>
+                    <attachment href="https://foo.bar/something.png">An image</attachment>
+                </attachments>
+            </event>
+        </room>
+    </day>
+</schedule>

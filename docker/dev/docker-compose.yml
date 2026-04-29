@@ -1,0 +1,67 @@
+services:
+  es_server:
+    image: es_dev_webserver
+    build:
+      context: ./../..
+      dockerfile: docker/dev/Dockerfile
+      target: es_webserver
+    volumes:
+      - ./../..:/var/www
+    environment:
+      RUN_USER: "${UID}:${GID}"
+      MYSQL_TYPE: mariadb
+      MYSQL_HOST: es_database
+      MYSQL_USER: engelsystem
+      MYSQL_PASSWORD: engelsystem
+      MYSQL_DATABASE: engelsystem
+      PHP_IDE_CONFIG: serverName=engelsystem
+      ENVIRONMENT: development
+      MAIL_DRIVER: log
+      APP_NAME: Engelsystem DEV
+    env_file: deployment.env
+    ports:
+      - "127.0.0.1:5080:80"
+    depends_on:
+      - es_database
+  es_workspace:
+    image: es_dev_workspace
+    build:
+      context: ./../..
+      dockerfile: docker/dev/Dockerfile
+      target: es_workspace
+    user: "${UID}:${GID}"
+    volumes:
+      - ./../..:/var/www
+    environment:
+      HOME: /tmp
+      MYSQL_TYPE: mariadb
+      MYSQL_HOST: es_database
+      MYSQL_USER: engelsystem
+      MYSQL_PASSWORD: engelsystem
+      MYSQL_DATABASE: engelsystem
+      ENVIRONMENT: development
+      MAIL_DRIVER: log
+      APP_NAME: Engelsystem DEV
+    depends_on:
+      - es_database
+  es_phpmyadmin:
+    image: phpmyadmin
+    environment:
+      PMA_HOST: es_database
+    ports:
+      - "127.0.0.1:8888:80"
+    depends_on:
+      - es_database
+    profiles: [ dev ]
+  es_database:
+    image: mariadb:10.7
+    environment:
+      MYSQL_DATABASE: engelsystem
+      MYSQL_USER: engelsystem
+      MYSQL_PASSWORD: engelsystem
+      MYSQL_RANDOM_ROOT_PASSWORD: 1
+      MYSQL_INITDB_SKIP_TZINFO: "yes"
+    volumes:
+      - db:/var/lib/mysql
+volumes:
+  db: {}
