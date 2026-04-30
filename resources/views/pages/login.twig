@@ -107,8 +107,8 @@
                     </div>
                     
                     <div class="card-footer bg-light border-0 p-3 text-center">
-                        <div class="admin-hint p-2 rounded-4 bg-white border border-warning-subtle shadow-sm">
-                            <span class="badge bg-warning-subtle text-warning-emphasis border border-warning-subtle mb-1" style="font-size: 0.7rem;">Admin Access</span>
+                        <div class="admin-hint p-2 rounded-4 bg-white border border-primary-subtle shadow-sm">
+                            <span class="badge bg-primary-subtle text-primary-emphasis border border-primary-subtle mb-1" style="font-size: 0.7rem;">Admin Access</span>
                             <div class="small font-monospace text-secondary" style="font-size: 0.75rem;">
                                 <strong>User:</strong> <span class="text-dark">admin</span> | 
                                 <strong>Pass:</strong> <span class="text-dark">asdfasdf</span>
@@ -147,7 +147,7 @@
         position: relative;
         min-height: 100vh;
         background-color: #fcfcfc;
-        overflow-x: hidden;
+        overflow: hidden;
     }
     .doodle-background {
         position: absolute;
@@ -157,16 +157,24 @@
         height: 100%;
         z-index: 0;
         pointer-events: none;
-        background-image: url('{{ url('/images/login-doodle.png') }}');
-        background-size: cover;
-        background-position: center;
-        opacity: 0.15;
-        filter: grayscale(100%);
+        opacity: 0.08;
     }
-    @keyframes kenBurns {
-        0% { transform: scale(1) translate(0, 0); }
-        50% { transform: scale(1.1) translate(-2%, -2%); }
-        100% { transform: scale(1.2) translate(1%, 1%); }
+    .svg-doodle {
+        position: absolute;
+        fill: none;
+        stroke: #6366f1;
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-dasharray: 1000;
+        stroke-dashoffset: 1000;
+        animation: draw 10s linear infinite forwards;
+    }
+    @keyframes draw {
+        to { stroke-dashoffset: 0; }
+    }
+    @keyframes float {
+        0%, 100% { transform: translate(0, 0) rotate(0deg); }
+        50% { transform: translate(20px, -20px) rotate(5deg); }
     }
     .cinematic-title {
         background: linear-gradient(135deg, #1e1b4b, #4338ca);
@@ -178,10 +186,14 @@
         background: rgba(255, 255, 255, 0.9);
         backdrop-filter: blur(15px);
         z-index: 1;
-        max-width: 380px;
+        max-width: 420px;
         margin: 0 auto;
         box-shadow: 0 25px 50px -12px rgba(99, 102, 241, 0.15) !important;
         border: 1px solid rgba(99, 102, 241, 0.1) !important;
+        transition: transform 0.3s ease;
+    }
+    .login-card:hover {
+        transform: scale(1.01);
     }
     .countdown-card {
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -193,7 +205,7 @@
     }
     .admin-hint {
         border-style: dashed !important;
-        background: rgba(245, 158, 11, 0.02) !important;
+        background: rgba(99, 102, 241, 0.02) !important;
     }
     .form-control:focus {
         box-shadow: 0 0 0 0.25rem rgba(99, 102, 241, 0.1);
@@ -214,5 +226,44 @@
         font-size: 0.75rem;
     }
 </style>
-</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const container = document.querySelector('.doodle-background');
+    const doodles = [
+        'M10,10 Q50,90 90,10',
+        'M20,80 C40,20 60,140 80,80',
+        'M10,50 L90,50 Q50,0 10,50',
+        'M30,30 A20,20 0 1,0 70,70',
+        'M50,10 L50,90 M10,50 L90,50'
+    ];
+
+    for (let i = 0; i < 15; i++) {
+        const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+        svg.setAttribute('viewBox', '0 0 100 100');
+        svg.classList.add('svg-doodle');
+        
+        const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+        path.setAttribute('d', doodles[Math.floor(Math.random() * doodles.length)]);
+        
+        svg.appendChild(path);
+        
+        const size = 50 + Math.random() * 150;
+        svg.style.width = size + 'px';
+        svg.style.height = size + 'px';
+        svg.style.top = Math.random() * 100 + '%';
+        svg.style.left = Math.random() * 100 + '%';
+        svg.style.animationDelay = (Math.random() * 5) + 's';
+        svg.style.animationDuration = (10 + Math.random() * 20) + 's';
+        svg.style.opacity = 0.1 + Math.random() * 0.2;
+        
+        // Add floating effect
+        svg.style.setProperty('--float-x', (Math.random() * 40 - 20) + 'px');
+        svg.style.setProperty('--float-y', (Math.random() * 40 - 20) + 'px');
+        
+        container.appendChild(svg);
+    }
+});
+</script>
+
 {% endblock %}
