@@ -1,0 +1,107 @@
+/* DevCon Mumbai 2026 Custom CSS */
+/* Light, airy, glassmorphic, and animated */
+
+:root {
+    --devcon-primary: #3b82f6; /* Modern Blue */
+    --devcon-secondary: #ec4899; /* DevCon Pink */
+    --devcon-bg: #f8fafc;
+    --devcon-glass-bg: rgba(255, 255, 255, 0.75);
+    --devcon-glass-border: rgba(255, 255, 255, 0.2);
+    --devcon-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+}
+
+body[data-theme_type="light"] {
+    background-color: var(--devcon-bg);
+    background-image: radial-gradient(at 0% 0%, hsla(253,16%,7%,0) 0, transparent 50%), radial-gradient(at 50% 0%, hsla(225,39%,30%,0.05) 0, transparent 50%), radial-gradient(at 100% 0%, hsla(339,49%,30%,0.05) 0, transparent 50%);
+    background-attachment: fixed;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: #334155;
+}
+
+/* Glassmorphism for Cards */
+body[data-theme_type="light"] .card {
+    background: var(--devcon-glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--devcon-glass-border);
+    border-radius: 16px;
+    box-shadow: var(--devcon-shadow);
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+}
+
+body[data-theme_type="light"] .card:hover {
+    transform: translateY(-5px) scale(1.01);
+    box-shadow: 0 15px 35px 0 rgba(31, 38, 135, 0.12);
+}
+
+/* Navbar styling */
+body[data-theme_type="light"] .navbar {
+    background: transparent !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255,255,255,0.3);
+    transition: all 0.3s ease-in-out;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+body[data-theme_type="light"] .navbar.scrolled {
+    background: rgba(255, 255, 255, 0.9) !important;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+/* Buttons */
+body[data-theme_type="light"] .btn-primary {
+    background: linear-gradient(135deg, var(--devcon-primary), var(--devcon-secondary));
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    background-size: 200% auto;
+}
+
+body[data-theme_type="light"] .btn-primary:hover {
+    background-position: right center;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 15px rgba(236, 72, 153, 0.3);
+}
+
+/* Inputs */
+body[data-theme_type="light"] .form-control {
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+    transition: all 0.3s ease;
+}
+
+body[data-theme_type="light"] .form-control:focus {
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+    border-color: var(--devcon-primary);
+}
+
+/* Scroll Fade-Up Animation */
+.reveal-up {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+}
+
+.reveal-up.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Fix Login Neon Animation for Light Theme */
+@keyframes devcon-neon-pulse-light {
+    0% { text-shadow: 0 0 5px rgba(236, 72, 153, 0.5), 0 0 10px rgba(236, 72, 153, 0.3); color: #1e293b; }
+    50% { text-shadow: 0 0 2px rgba(236, 72, 153, 0.2), 0 0 5px rgba(236, 72, 153, 0.1); color: #334155; }
+    100% { text-shadow: 0 0 5px rgba(236, 72, 153, 0.5), 0 0 10px rgba(236, 72, 153, 0.3); color: #1e293b; }
+}
+
+body[data-theme_type="light"] #welcome-title h2 {
+    animation: devcon-neon-pulse-light 3s infinite alternate;
+    font-weight: 800;
+    letter-spacing: -1px;
+}

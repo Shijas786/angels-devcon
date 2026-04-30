@@ -1,0 +1,62 @@
+name: Cleanup Repository
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      deployments: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Cleanup Deployments and Environments
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+
+            // 1. Delete all Deployments
+            const deployments = await github.rest.repos.listDeployments({ owner, repo });
+            for (const deployment of deployments.data) {
+              console.log(`Deleting deployment ${deployment.id}`);
+              await github.rest.repos.createDeploymentStatus({
+                owner,
+                repo,
+                deployment_id: deployment.id,
+                state: 'inactive'
+              });
+              await github.rest.repos.deleteDeployment({
+                owner,
+                repo,
+                deployment_id: deployment.id,
+              });
+            }
+
+            // 2. Delete all Environments
+            const envs = await github.rest.repos.getAllEnvironments({ owner, repo });
+            for (const env of envs.data.environments || []) {
+              console.log(`Deleting environment ${env.name}`);
+              await github.rest.repos.deleteAnEnvironment({
+                owner,
+                repo,
+                environment_name: env.name
+              });
+            }
+
+      - name: Cleanup Extra Branches
+        run: |
+          git fetch --prune
+          # List all remote branches, filter out main/HEAD, and delete them
+          for branch in $(git branch -r | grep -v 'HEAD' | grep -v 'main' | sed 's/origin\///'); do
+            echo "Deleting remote branch: $branch"
+            git push origin --delete "$branch" || true
+          done

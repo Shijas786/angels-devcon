@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="{{ session_get('locale')|split('_')[0]|escape('html_attr') }}" class="h-100">
+<head>
+    {% block head %}
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <meta name="csrf-token" content="{{ csrf_token() }}"/>
+
+        <title>{% block title %}{{ title }}{% endblock %} - {{ config('app_name') }}</title>
+
+        <link rel="icon" href="{{ asset('assets/angel.svg') }}"/>
+        <link rel="stylesheet" type="text/css" href="{{ asset('assets/theme' ~ themeId ~ '.css') }}"/>
+        <script src="{{ asset('assets/vendor.js') }}"></script>
+
+        {% if page() in ['news', 'meetings'] and is_user() and can('atom') -%}
+            {% set parameters = {'key': user.api_key} -%}
+            {% if page() == 'meetings' -%}
+                {% set parameters = {'meetings': 1}|merge(parameters) -%}
+            {% endif %}
+            <link href="{{ url('/atom', parameters) }}" type="application/atom+xml" rel="alternate" title="Atom Feed">
+            <link href="{{ url('/rss', parameters) }}" type="application/rss+xml" rel="alternate" title="RSS Feed" />
+        {%- endif %}
+
+    {% endblock %}
+
+    <noscript>
+        <style>
+            .js-only {
+                display: none !important;
+            }
+        </style>
+    </noscript>
+    
+    {# Inject Custom DevCon Theming & Animations #}
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/devcon-custom.css') }}"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+<body class="d-flex flex-column h-100" data-theme_type="{{ theme.type }}">
+
+{% block body %}
+    {% block header %}
+        {% include "layouts/parts/navbar.twig" %}
+    {% endblock %}
+
+    <div class="container-fluid">
+        <div id="content">
+            {% block content %}
+                {{ content|raw }}
+            {% endblock %}
+        </div>
+    </div>
+
+    <div id="footer" class="mt-auto">
+        {% block footer %}
+            {% include "layouts/parts/footer.twig" %}
+        {% endblock %}
+    </div>
+
+    {% block scripts %}{% endblock %}
+{% endblock %}
+
+{# Custom Scroll Animation Script #}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Navbar scroll effect
+    const navbar = document.querySelector('.navbar');
+    if (navbar) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 20) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+    }
+
+    // Add reveal classes to elements
+    const cards = document.querySelectorAll('.card');
+    const textBlocks = document.querySelectorAll('h2, h4, p');
+    
+    [...cards, ...textBlocks].forEach(el => {
+        el.classList.add('reveal-up');
+    });
+
+    // Intersection Observer for fade-in
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px"
+    });
+
+    document.querySelectorAll('.reveal-up').forEach(el => {
+        observer.observe(el);
+    });
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,50 @@
+# Generic cache files
+*~
+.~*
+*.tmp
+*.temp
+*.DS_Store
+.*.swp
+*.out
+*.cache
+Thumbs.db
+.project
+.buildpath
+.settings
+_vimrc_local.vim
+.sass-cache
+
+# IDE & dev env files
+/flake.nix
+/flake.lock
+/.devcontainer
+/.idea/
+/.phpstorm.meta.php
+/.vscode
+
+# Docker .env files
+/docker/.env
+/docker/deployment.env
+/docker/dev/.env
+/docker/dev/deployment.env
+
+# Project files
+/config/config.php
+/config/config.local.php
+/config/lang/
+/public/*.xml
+/public/coverage
+/test/coverage
+/coverage
+/unittests.xml
+/resources/lang/*/*.mo
+
+# Composer files
+/vendor/
+
+# Frontend files
+/node_modules
+/public/assets
+/package-lock.json
+/yarn-error.log
+/.yarn-cache
