@@ -44,7 +44,7 @@ function make_navigation(): array
         // path          => name,
         // path          => [name, permission],
         'news'           => 'news.title',
-        'guide'          => 'Mumbai City Guide',
+        'guide'          => ['Mumbai City Guide', 'news'],
         'meetings'       => ['news.title.meetings', 'user_meetings'],
         'user_shifts'    => 'general.shifts',
         'angeltypes'     => 'angeltypes.angeltypes',
