@@ -4,14 +4,18 @@
 {% block title %}{{ __('general.login') }}{% endblock %}
 
 {% block content %}
-    <div class="col-md-12">
-        <div class="row mb-3 mt-5">
+<div class="login-container">
+    <div class="doodle-background"></div>
+    
+    <div class="col-md-12 position-relative py-5">
+        <div class="row mb-5">
             <div class="col-sm-12 text-center" id="welcome-title">
-                <h2>{{ __('login.welcome', [config('name')|e])|raw }}</h2>
+                <h1 class="display-3 fw-bold cinematic-title">{{ __('login.welcome', [config('name')|e])|raw }}</h1>
+                <p class="lead text-muted">Devcon 8 India: Volunteer Portal</p>
             </div>
         </div>
 
-        <div class="row mb-3">
+        <div class="row mb-5 g-4 justify-content-center">
             {% for name,date in {
                 (__('event.buildup.start')): config('buildup_start'),
                 (__('event.starts')): config('event_start'),
@@ -19,10 +23,12 @@
                 (__('event.teardown.ends')): config('teardown_end')
             } | filter(date => date) %}
                 {% if date > date() %}
-                    <div class="col-sm-3 text-center d-none d-sm-block">
-                        <h4>{{ name }}</h4>
-                        <div class="h2 text-body" title="{{ date.format(__('general.datetime')) }}" data-countdown-ts="{{ date.getTimestamp() }}">%c</div>
-                        <small>{{ date.format(__('general.date')) }}</small>
+                    <div class="col-6 col-md-3 text-center">
+                        <div class="countdown-card p-3 rounded-4 bg-white shadow-sm border border-light-subtle">
+                            <h6 class="text-uppercase small fw-bold text-primary mb-1">{{ name }}</h6>
+                            <div class="h2 mb-0 fw-bold" title="{{ date.format(__('general.datetime')) }}" data-countdown-ts="{{ date.getTimestamp() }}">%c</div>
+                            <small class="text-muted">{{ date.format(__('general.date')) }}</small>
+                        </div>
                     </div>
                 {% endif %}
             {% endfor %}
@@ -30,9 +36,8 @@
 
         <div class="row mb-5">
             <div class="col-md-6 offset-md-3 col-lg-4 offset-lg-4">
-                <div class="card {{ m.type_bg_class() }} registration">
-                    {% set login_hidden = not config('enable_password') %}
-                    <div class="card-body">
+                <div class="card login-card border-0 shadow-lg rounded-5 overflow-hidden">
+                    <div class="card-body p-5">
                         {% include 'layouts/parts/messages.twig' %}
 
                         {% if session_get('show_welcome', false) %}
@@ -41,118 +46,154 @@
 
                         <form action="" enctype="multipart/form-data" method="post" id="login-form">
                             {{ csrf() }}
-                            <div class="mb-3{% if login_hidden %} d-none{% endif %}">
-                                <div class="input-group input-group-lg">
-                                    <span class="input-group-text {{ m.type_text_class() }}">
-                                        {{ m.angel }}
+                            {% set login_hidden = not config('enable_password') %}
+                            
+                            <div class="mb-4{% if login_hidden %} d-none{% endif %}">
+                                <label for="form_nick" class="form-label fw-bold small text-uppercase text-secondary">{{ __('general.nick') }}</label>
+                                <div class="input-group input-group-lg shadow-sm rounded-3 overflow-hidden">
+                                    <span class="input-group-text border-0 bg-light text-primary">
+                                        {{ m.icon('person') }}
                                     </span>
-                                    <label for="form_nick" class="visually-hidden">{{ __('general.nick') }}</label>
                                     <input
-                                        class="form-control"
+                                        class="form-control border-0 bg-light"
                                         id="form_nick"
                                         type="text"
                                         name="login"
                                         value=""
-                                        placeholder="{{ __('general.nick') }}"
+                                        placeholder="Username"
                                         autofocus>
                                 </div>
                             </div>
 
-                            <div class="mb-3{% if login_hidden %} d-none{% endif %}">
-                                <div class="input-group input-group-lg">
-                                    <span class="input-group-text {{ m.type_text_class() }}">
-                                        <i class="bi bi-key"></i>
+                            <div class="mb-4{% if login_hidden %} d-none{% endif %}">
+                                <label for="form_password" class="form-label fw-bold small text-uppercase text-secondary">{{ __('settings.password') }}</label>
+                                <div class="input-group input-group-lg shadow-sm rounded-3 overflow-hidden">
+                                    <span class="input-group-text border-0 bg-light text-primary">
+                                        {{ m.icon('key') }}
                                     </span>
-                                    <label for="form_password" class="visually-hidden">{{ __('settings.password') }}</label>
                                     <input
-                                        class="form-control" id="form_password" type="password"
-                                        name="password" value="" placeholder="{{ __('settings.password') }}" autocomplete="current-password"
+                                        class="form-control border-0 bg-light" 
+                                        id="form_password" 
+                                        type="password"
+                                        name="password" 
+                                        value="" 
+                                        placeholder="Password" 
+                                        autocomplete="current-password"
                                     >
                                 </div>
                             </div>
 
-                            <div class="mb-3 text-center{% if login_hidden %} d-none{% endif %}">
-                                <button class="btn btn-primary btn-lg btn-block" type="submit" name="submit">
+                            <div class="mb-4 text-center{% if login_hidden %} d-none{% endif %}">
+                                <button class="btn btn-primary btn-lg w-100 rounded-pill py-3 fw-bold shadow" type="submit" name="submit">
                                     {{ __('general.login') }}
                                 </button>
                             </div>
 
-                            {%  if config('oauth') is not empty %}
-                                <div class="row">
-                                    <div class="mb-3 btn-group">
-                                        {% for name,config in config('oauth') %}
-                                            <a href="{{ url('/oauth/' ~ name) }}" class="btn btn-primary btn-lg{% if config.hidden|default(false) %} d-none{% endif %}">
-                                                {{ __(
-                                                    'oauth.login-using-provider',
-                                                    [__(config.name|default(name|capitalize))]
-                                                ) }}
-                                            </a>
-                                        {% endfor %}
-                                    </div>
+                            {% if config('oauth') is not empty %}
+                                <div class="d-grid gap-2 mb-4">
+                                    {% for name,config in config('oauth') %}
+                                        <a href="{{ url('/oauth/' ~ name) }}" class="btn btn-outline-primary btn-lg rounded-pill{% if config.hidden|default(false) %} d-none{% endif %}">
+                                            {{ m.icon('shield-lock') }} {{ __( 'oauth.login-using-provider', [__(config.name|default(name|capitalize))] ) }}
+                                        </a>
+                                    {% endfor %}
                                 </div>
                             {% endif %}
 
-                            <div class="text-center{% if login_hidden %} d-none{% endif %}">
-                                <a href="{{ url('/password/reset') }}" class="">
+                            <div class="text-center small{% if login_hidden %} d-none{% endif %}">
+                                <a href="{{ url('/password/reset') }}" class="text-decoration-none text-muted">
                                     {{ __('login.password.reset') }}
                                 </a>
                             </div>
                         </form>
                     </div>
+                    
+                    <div class="card-footer bg-light border-0 p-4 text-center">
+                        <div class="admin-hint p-3 rounded-4 bg-white border border-info-subtle">
+                            <span class="badge bg-info text-dark mb-2">Admin Access</span>
+                            <div class="small font-monospace">
+                                <strong>User:</strong> admin<br>
+                                <strong>Pass:</strong> asdfasdf
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="row mb-5">
-            <div class="col-sm-6 text-center">
-                <h2>{{ __('general.register') }}</h2>
-                {% if
-                    (can('register') and config('registration_enabled') and config('enable_password'))
-                    or config('external_registration_url') %}
-                    <p>{{ __('login.registration') }}</p>
-
+        <div class="row g-5 py-5 border-top">
+            <div class="col-md-6 text-center text-md-start">
+                <h3 class="fw-bold">{{ __('general.register') }}</h3>
+                {% if (can('register') and config('registration_enabled') and config('enable_password')) or config('external_registration_url') %}
+                    <p class="text-muted">{{ __('login.registration') }}</p>
                     {% set registration_url = config('external_registration_url') ?: url('/register') %}
-                    <a href="{{ registration_url }}" class="btn btn-primary">{{ __('general.register') }} &raquo;</a>
+                    <a href="{{ registration_url }}" class="btn btn-outline-dark rounded-pill px-4">{{ __('general.register') }} &raquo;</a>
                 {% else %}
-                    {% if not config('enable_password') %}
-                        <p>{{ __('login.registration.external') }}</p>
-                    {% else %}
-                        {{ m.alert(__('login.registration.disabled'), 'danger') }}
-                    {% endif %}
+                    <p class="text-muted">{{ __('login.registration.disabled') }}</p>
                 {% endif %}
             </div>
 
-            <div class="col-sm-6 text-center">
-                <h2>{{ __('login.do') }}</h2>
-                <p>{{ __('login.jobs') }}</p>
-                <a href="{{ url('/angeltypes/about') }}" class="btn btn-primary">
+            <div class="col-md-6 text-center text-md-end">
+                <h3 class="fw-bold">{{ __('login.do') }}</h3>
+                <p class="text-muted">{{ __('login.jobs') }}</p>
+                <a href="{{ url('/angeltypes/about') }}" class="btn btn-outline-dark rounded-pill px-4">
                     {{ __('angeltypes.about') }} &raquo;
                 </a>
             </div>
-
-            <div class="col-md-12 text-center">
-                {{ m.icon('info-circle') }} {{ __('login.cookies') }}
-            </div>
         </div>
     </div>
+</div>
 
-    {# Custom DevCon Web3 Animations #}
-    <style>
-        @keyframes devcon-neon-pulse {
-            0% { text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff00de, 0 0 40px #ff00de; }
-            50% { text-shadow: 0 0 2px #fff, 0 0 5px #fff, 0 0 10px #ff00de, 0 0 20px #ff00de; }
-            100% { text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff00de, 0 0 40px #ff00de; }
-        }
-        #welcome-title h2 {
-            animation: devcon-neon-pulse 2s infinite alternate;
-            color: #fff;
-        }
-        .card.registration {
-            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-        }
-        .card.registration:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(255, 0, 222, 0.2);
-        }
-    </style>
+<style>
+    .login-container {
+        position: relative;
+        min-height: 100vh;
+        background-color: #fcfcfc;
+        overflow: hidden;
+    }
+    .doodle-background {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url('{{ url('/images/login-doodle.png') }}');
+        background-size: cover;
+        background-position: center;
+        opacity: 0.15;
+        z-index: 0;
+        pointer-events: none;
+    }
+    .cinematic-title {
+        background: linear-gradient(135deg, #2c3e50, #000);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        letter-spacing: -2px;
+    }
+    .login-card {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        z-index: 1;
+    }
+    .countdown-card {
+        transition: transform 0.3s ease;
+    }
+    .countdown-card:hover {
+        transform: translateY(-5px);
+    }
+    .admin-hint {
+        border-style: dashed !important;
+    }
+    .form-control:focus {
+        box-shadow: none;
+        border-color: var(--bs-primary);
+    }
+    .btn-primary {
+        background: linear-gradient(135deg, #6366f1, #4f46e5);
+        border: none;
+    }
+    .btn-primary:hover {
+        background: linear-gradient(135deg, #4f46e5, #4338ca);
+        transform: scale(1.02);
+    }
+</style>
 {% endblock %}
