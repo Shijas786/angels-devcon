@@ -5,39 +5,7 @@
 
 {% block content %}
 <div class="login-container">
-    <div class="doodle-background">
-        <!-- Floating Doodles -->
-        <svg class="floating-svg" style="top: 5%; left: 5%; width: 150px; opacity: 0.1;" viewBox="0 0 200 200">
-            <!-- Mandala-like pattern -->
-            <circle cx="100" cy="100" r="80" stroke="#6366f1" stroke-width="1" fill="none" stroke-dasharray="5 5" />
-            <circle cx="100" cy="100" r="60" stroke="#6366f1" stroke-width="1" fill="none" />
-            <path d="M100,20 L100,180 M20,100 L180,100" stroke="#6366f1" stroke-width="1" />
-        </svg>
-        <svg class="floating-svg" style="top: 15%; right: 10%; width: 120px; animation-delay: -4s;" viewBox="0 0 100 100">
-            <!-- Lotus/Flower -->
-            <path d="M50,80 Q30,50 50,20 Q70,50 50,80 Z" fill="none" stroke="#f43f5e" stroke-width="2" />
-            <path d="M50,80 Q10,60 20,40 Q40,40 50,80 Z" fill="none" stroke="#f43f5e" stroke-width="2" />
-            <path d="M50,80 Q90,60 80,40 Q60,40 50,80 Z" fill="none" stroke="#f43f5e" stroke-width="2" />
-        </svg>
-        <svg class="floating-svg" style="bottom: 10%; left: 10%; width: 180px; animation-delay: -7s;" viewBox="0 0 200 100">
-            <!-- Waves/Sea -->
-            <path d="M0,50 Q25,30 50,50 T100,50 T150,50 T200,50" fill="none" stroke="#0ea5e9" stroke-width="2" />
-            <path d="M0,70 Q25,50 50,70 T100,70 T150,70 T200,70" fill="none" stroke="#0ea5e9" stroke-width="2" opacity="0.5" />
-        </svg>
-        <svg class="floating-svg" style="bottom: 20%; right: 5%; width: 100px; animation-delay: -2s;" viewBox="0 0 100 100">
-            <!-- Abstract geometry -->
-            <rect x="25" y="25" width="50" height="50" stroke="#f59e0b" stroke-width="2" fill="none" transform="rotate(45 50 50)" />
-            <circle cx="50" cy="50" r="10" fill="#f59e0b" />
-        </svg>
-        
-        <!-- Rickshaw Doodle -->
-        <svg class="floating-svg" style="top: 40%; left: 80%; width: 60px; animation: float 15s infinite linear;" viewBox="0 0 60 40">
-            <rect x="10" y="10" width="30" height="20" rx="2" fill="none" stroke="#22c55e" stroke-width="2" />
-            <circle cx="15" cy="35" r="5" fill="none" stroke="#22c55e" stroke-width="2" />
-            <circle cx="35" cy="35" r="5" fill="none" stroke="#22c55e" stroke-width="2" />
-            <path d="M40,20 L50,30" stroke="#22c55e" stroke-width="2" />
-        </svg>
-    </div>
+    <div class="doodle-background"></div>
     
     <div class="col-md-12 position-relative py-4">
         <div class="row mb-4">
@@ -189,21 +157,16 @@
         height: 100%;
         z-index: 0;
         pointer-events: none;
-        background: radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.05) 0%, transparent 70%);
+        background-image: url('{{ url('/images/eth-mumbai-doodle.png') }}');
+        background-size: cover;
+        background-position: center;
+        opacity: 0.18;
+        animation: kenBurns 60s infinite alternate ease-in-out;
     }
-    .floating-svg {
-        position: absolute;
-        opacity: 0.15;
-        transition: opacity 0.5s ease;
-    }
-    @keyframes float {
-        0% { transform: translate(0, 0) rotate(0deg); }
-        33% { transform: translate(30px, -40px) rotate(10deg); }
-        66% { transform: translate(-20px, 20px) rotate(-5deg); }
-        100% { transform: translate(0, 0) rotate(0deg); }
-    }
-    .floating-svg {
-        animation: float 20s infinite ease-in-out;
+    @keyframes kenBurns {
+        0% { transform: scale(1) translate(0, 0); }
+        50% { transform: scale(1.1) translate(-2%, -2%); }
+        100% { transform: scale(1.2) translate(1%, 1%); }
     }
     .cinematic-title {
         background: linear-gradient(135deg, #1e1b4b, #4338ca);
