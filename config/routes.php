@@ -12,6 +12,7 @@ $route->get('/register', 'RegistrationController@view');
 $route->post('/register', 'RegistrationController@save');
 $route->get('/credits', 'CreditsController@index');
 $route->get('/health', 'HealthController@index');
+$route->get('/guide', 'GuideController@index');
 
 // Authentication
 $route->get('/login', 'AuthController@login');

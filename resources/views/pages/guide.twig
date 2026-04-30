@@ -1,0 +1,366 @@
+{% extends "layouts/app.twig" %}
+{% import 'macros/base.twig' as m %}
+
+{% block title %}Mumbai City Guide{% endblock %}
+
+{% block content %}
+<div class="col-md-12">
+    <div class="row mb-5 mt-4">
+        <div class="col-sm-12 text-center">
+            <h1 class="display-4 cinematic-title">Mumbai City Guide</h1>
+            <p class="lead text-muted fw-light">Devcon 8 India: Your Friend's Guide to Mumbai</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-3 d-none d-lg-block">
+            <div class="sticky-top pt-5" style="top: 80px; z-index: 10;">
+                <nav id="guide-toc" class="nav flex-column guide-nav p-3 rounded-4 shadow-sm border border-light-subtle bg-body-tertiary">
+                    <h5 class="mb-3 px-3 fw-bold text-secondary">Sections</h5>
+                    <a class="nav-link" href="#overview">{{ m.icon('info-circle') }} Overview</a>
+                    <a class="nav-link" href="#event-info">{{ m.icon('calendar-event') }} Key Event Info</a>
+                    <a class="nav-link" href="#getting-there">{{ m.icon('airplane') }} Getting to Mumbai</a>
+                    <a class="nav-link" href="#visas">{{ m.icon('card-checklist') }} Visas</a>
+                    <a class="nav-link" href="#where-to-stay">{{ m.icon('house') }} Where to Stay</a>
+                    <a class="nav-link" href="#safety">{{ m.icon('shield-check') }} Safety & Cultural</a>
+                    <a class="nav-link" href="#payments">{{ m.icon('wallet2') }} Payments & Connectivity</a>
+                    <a class="nav-link" href="#neighborhoods">{{ m.icon('pin-map') }} Neighborhoods</a>
+                    <a class="nav-link" href="#connect">{{ m.icon('people') }} Connect</a>
+                </nav>
+            </div>
+        </div>
+
+        <div class="col-lg-9">
+            <div class="guide-content p-4 p-md-5 rounded-4 shadow-lg border border-light-subtle bg-body">
+                
+                <!-- 1. Overview -->
+                <section id="overview" class="mb-5">
+                    <img src="{{ url('/assets/images/guide/gateway.png') }}" alt="Gateway of India" class="img-fluid rounded-4 shadow-lg mb-4 cinematic-img">
+                    <h2 class="mb-4 cinematic-header">{{ m.icon('info-circle') }} 1. Overview</h2>
+                    <p class="fs-5 fw-light">Mumbai is one of India’s largest cities and its financial capital, stretching along the Arabian Sea. It's dense, energetic, and made up of distinct neighborhoods that feel very different from one another: historic colonial districts in the south, glossy business hubs in the center, trendier residential areas along the western corridor.</p>
+                    <p>It's a city of contrasts: glass towers sit alongside busy markets and street food stalls. The pace is fast, the streets are lively, and traffic can be intense.</p>
+                    
+                    <div class="row g-4 mt-2">
+                        <div class="col-md-6">
+                            <div class="card h-100 border-0 bg-light-subtle rounded-4">
+                                <div class="card-body p-4">
+                                    <h5 class="card-title fw-bold text-primary">{{ m.icon('translate') }} Language</h5>
+                                    <p class="card-text">English is widely spoken in hotels, restaurants, business settings, and by Uber/Ola drivers in text chat. Marathi and Hindi are the most common local languages.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card h-100 border-0 bg-light-subtle rounded-4">
+                                <div class="card-body p-4">
+                                    <h5 class="card-title fw-bold text-primary">{{ m.icon('brightness-high') }} Weather</h5>
+                                    <p class="card-text">Early November: Pleasant climate, moderate humidity, rain unlikely. Air quality is generally good, with no major pollution issues.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 2. Key Event Info -->
+                <section id="event-info" class="mb-5">
+                    <img src="{{ url('/assets/images/guide/jio.png') }}" alt="Jio World Centre" class="img-fluid rounded-4 shadow-lg mb-4 cinematic-img">
+                    <h2 class="mb-4 cinematic-header">{{ m.icon('calendar-event') }} 2. Key Event Info</h2>
+                    <div class="alert alert-primary d-flex align-items-center rounded-4 shadow-sm p-4 border-0" role="alert" style="background: linear-gradient(135deg, var(--bs-primary-bg-subtle), var(--bs-info-bg-subtle));">
+                        {{ m.icon('info-circle-fill', 'me-3 h2 text-primary') }}
+                        <div>
+                            <strong class="fs-5">Dates:</strong> November 3–6, 2026 (Tuesday–Friday)<br>
+                            <strong class="fs-5">Venue:</strong> Jio World Convention Centre, Bandra Kurla Complex (BKC)
+                        </div>
+                    </div>
+                    <p class="mt-4">BKC (Bandra Kurla Complex) is Mumbai's modern corporate district, purpose-built, with wide roads relative to the rest of the city.</p>
+                    <p>Jio World Centre is a large-scale convention facility within the complex. Adjacent to it is Jio World Drive (mall with restaurants and retail) and NMACC (performing arts center).</p>
+                    <p><strong>Metro access:</strong> BKC station on Metro Line 3 is located between 200m and 1.3 km from the Jio venue entrance.</p>
+                </section>
+
+                <!-- 3. Getting to Mumbai -->
+                <section id="getting-there" class="mb-5">
+                    <img src="{{ url('/assets/images/guide/airport.png') }}" alt="Mumbai Airport" class="img-fluid rounded-4 shadow-lg mb-4 cinematic-img">
+                    <h2 class="mb-4 cinematic-header">{{ m.icon('airplane') }} 3. Getting to Mumbai</h2>
+                    <h3 class="fw-bold mb-3">Airport</h3>
+                    <p>Chhatrapati Shivaji Maharaj International Airport (BOM) Terminal 2 is modern and fully English-signposted. Most long-haul arrivals land between 11pm and 6am.</p>
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-4">
+                            <div class="p-3 border-0 rounded-4 bg-light shadow-sm text-center">
+                                <span class="d-block text-primary fs-3 mb-1">{{ m.icon('train-front') }}</span>
+                                <strong>Metro:</strong> ~5 mins
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="p-3 border-0 rounded-4 bg-light shadow-sm text-center">
+                                <span class="d-block text-primary fs-3 mb-1">{{ m.icon('car-front') }}</span>
+                                <strong>Road:</strong> 20–60 mins
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="p-3 border-0 rounded-4 bg-light shadow-sm text-center">
+                                <span class="d-block text-primary fs-3 mb-1">{{ m.icon('geo-alt') }}</span>
+                                <strong>Distance:</strong> ~8 km
+                            </div>
+                        </div>
+                    </div>
+                    <p><strong>Transport:</strong> Uber Black has designated pick-up points at the terminal. If you have an Indian phone number, <strong>Rapido</strong> (bike taxis) is also a good option.</p>
+
+                    <h3 id="visas" class="mt-5 fw-bold mb-3">Visas</h3>
+                    <div class="card border-0 mb-4 rounded-4 shadow-sm overflow-hidden">
+                        <div class="card-header border-0 bg-warning text-dark fw-bold py-3">
+                            {{ m.icon('exclamation-circle-fill') }} Important Visa Tip
+                        </div>
+                        <div class="card-body p-4 bg-warning-subtle">
+                            <p>Apply for the <strong>30-day e-Tourist Visa</strong> (~$25), which covers attendance at private conferences. Do <strong>NOT</strong> apply for the e-Conference Visa, that category is restricted to government-sponsored events.</p>
+                            <p class="mb-0">Official portal: <a href="https://indianvisaonline.gov.in" target="_blank" class="fw-bold text-dark text-decoration-underline">indianvisaonline.gov.in</a>. Apply at least 7-14 days before travel.</p>
+                        </div>
+                    </div>
+
+                    <h3 class="mt-4 fw-bold mb-3">Recommended Dates</h3>
+                    <p>Arriving November 1 or 2 allows time to adjust before the conference begins. <strong>Note:</strong> Diwali falls on November 8. Attendees who can extend their stay through November 9 will experience Mumbai during one of India's most spectacular celebrations.</p>
+                </section>
+
+                <!-- 4. Where to Stay -->
+                <section id="where-to-stay" class="mb-5">
+                    <img src="{{ url('/assets/images/guide/bandra.png') }}" alt="Bandra Nightlife" class="img-fluid rounded-4 shadow-lg mb-4 cinematic-img">
+                    <h2 class="mb-4 cinematic-header">{{ m.icon('house') }} 4. Where to Stay</h2>
+                    <p class="mb-4 lead">A 3-kilometer trip in Mumbai can take 10 minutes at dawn or 45 minutes at 6pm. Choose your accommodation based on proximity to the venue or access to Metro Line 3.</p>
+                    <div class="row g-4">
+                        <div class="col-md-12">
+                            <div class="list-group list-group-flush rounded-4 overflow-hidden border shadow-sm">
+                                <div class="list-group-item p-4">
+                                    <h5 class="mb-2 fw-bold text-primary">BKC (Walking Distance)</h5>
+                                    <p class="mb-0 text-muted">The most convenient option. Limited hotel supply in this area.</p>
+                                </div>
+                                <div class="list-group-item p-4">
+                                    <h5 class="mb-2 fw-bold text-primary">Bandra West (~3 km)</h5>
+                                    <p class="mb-0 text-muted">Mumbai's most social neighborhood — restaurants, cafés, nightlife. Commute adds significant time at rush hour (25–45 min). No direct metro connection.</p>
+                                </div>
+                                <div class="list-group-item p-4">
+                                    <h5 class="mb-2 fw-bold text-primary">Airport Cluster (~8 km)</h5>
+                                    <p class="mb-0 text-muted">Counter-intuitively fast (~5 min by Metro). Includes Juhu (beachfront), Santacruz (calmer neighborhood), and hotels next to BOM T2.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-4 p-3 bg-primary-subtle rounded-4 d-flex align-items-center">
+                        <span class="me-3 fs-3 text-primary">{{ m.icon('clock-history') }}</span>
+                        <p class="mb-0 small fw-bold">👉 We recommend booking as early as possible, ideally before August 2026, as demand will be high for Devcon and Diwali.</p>
+                    </div>
+                </section>
+
+                <!-- 5. Safety & Cultural -->
+                <section id="safety" class="mb-5">
+                    <h2 class="mb-4 cinematic-header">{{ m.icon('shield-check') }} 5. Safety & Cultural Tips</h2>
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <div class="p-4 rounded-4 bg-body-tertiary h-100 shadow-sm border border-light-subtle">
+                                <h4 class="fw-bold mb-3">Safety</h4>
+                                <p>Mumbai is one of India's safer major cities. Petty pickpocketing in crowded areas is the main concern. Solo female travelers generally report Mumbai as comfortable. Suburban trains have ladies-only compartments.</p>
+                                <p class="mb-0 small text-muted"><strong>Emergency:</strong> 112 (General) | 100 (Police) | 1091 (Women's Helpline)</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="p-4 rounded-4 bg-danger-subtle h-100 shadow-sm border border-danger-subtle">
+                                <h4 class="fw-bold mb-3 text-danger-emphasis">Food & Water</h4>
+                                <p class="text-danger fw-bold fs-5 mb-2">{{ m.icon('droplet-half') }} Do NOT drink tap water.</p>
+                                <p class="mb-0">Use sealed bottled water (Bisleri, Aquafina, Kinley). Avoid ice at street stalls. Ease into street food gradually, eating at high-turnover stalls where food is cooked in front of you.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card mt-4 rounded-4 bg-light border-0 shadow-sm">
+                        <div class="card-body p-4">
+                            <h5 class="card-title fw-bold mb-3">{{ m.icon('cup-straw') }} Eating near the venue</h5>
+                            <p class="card-text mb-0"><strong>Jio World Drive:</strong> SodaBottleOpenerWala, Foo, Smoke House Deli, Harajuku Tokyo Café.<br>
+                            <strong>BKC:</strong> Gajalee (seafood), Masala Library. <strong>Try:</strong> Vada pav, pav bhaji, bhel puri, thali.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 6. Payments & Connectivity -->
+                <section id="payments" class="mb-5">
+                    <img src="{{ url('/assets/images/guide/metro.png') }}" alt="Mumbai Metro" class="img-fluid rounded-4 shadow-lg mb-4 cinematic-img">
+                    <h2 class="mb-4 cinematic-header">{{ m.icon('wallet2') }} 6. Payments & Connectivity</h2>
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <div class="card border-0 bg-body-tertiary rounded-4 h-100 shadow-sm">
+                                <div class="card-body p-4">
+                                    <h3 class="fw-bold mb-3 h5">{{ m.icon('cash-stack') }} Payments</h3>
+                                    <ul class="list-unstyled mb-0">
+                                        <li class="mb-2"><strong>UPI:</strong> Dominant method. Visitors can use <em>UPI One World</em> (available at airport counters).</li>
+                                        <li class="mb-2"><strong>Cards:</strong> Visa/Mastercard accepted at hotels/malls. Select INR to avoid unfavorable conversion.</li>
+                                        <li><strong>Cash:</strong> Useful for autos, street food, and markets. Always carry small amounts.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card border-0 bg-body-tertiary rounded-4 h-100 shadow-sm">
+                                <div class="card-body p-4">
+                                    <h3 class="fw-bold mb-3 h5">{{ m.icon('wifi') }} Connectivity</h3>
+                                    <ul class="list-unstyled mb-0">
+                                        <li class="mb-2"><strong>eSIM:</strong> Airalo is recommended (install before departure).</li>
+                                        <li class="mb-2"><strong>Physical SIM:</strong> Airtel tourist SIMs at BOM airport Exit B (~₹1,000–1,500).</li>
+                                        <li><strong>Network:</strong> Jio and Airtel 5G in BKC is strong (100+ Mbps).</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 7. Neighborhoods -->
+                <section id="neighborhoods" class="mb-5">
+                    <h2 class="mb-4 cinematic-header">{{ m.icon('pin-map') }} 7. Mumbai Neighborhood Overview</h2>
+                    <div class="accordion border-0 shadow-sm rounded-4 overflow-hidden" id="neighborhoodAccordion">
+                        <div class="accordion-item border-0 border-bottom">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button fs-5 fw-bold py-4" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSouth">
+                                    South Mumbai (SoBo)
+                                </button>
+                            </h2>
+                            <div id="collapseSouth" class="accordion-collapse collapse show">
+                                <div class="accordion-body p-4 text-muted">
+                                    <strong>Colaba:</strong> Most visitor-friendly (Gateway of India, cafés, galleries).<br>
+                                    <strong>Fort & Kala Ghoda:</strong> Grand colonial architecture and museums.<br>
+                                    <strong>Marine Drive:</strong> Famous seafront promenade and Art Deco buildings.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item border-0 border-bottom">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed fs-5 fw-bold py-4" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCentral">
+                                    Central Mumbai
+                                </button>
+                            </h2>
+                            <div id="collapseCentral" class="accordion-collapse collapse">
+                                <div class="accordion-body p-4 text-muted">
+                                    <strong>Lower Parel:</strong> The hub for malls, offices, and nightlife.<br>
+                                    <strong>Prabhadevi & Dadar:</strong> Residential areas with intense local markets.<br>
+                                    <strong>Matunga:</strong> Strong South Indian character and great food.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item border-0 border-bottom">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed fs-5 fw-bold py-4" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWestNav">
+                                    Bandra & The West
+                                </button>
+                            </h2>
+                            <div id="collapseWestNav" class="accordion-collapse collapse">
+                                <div class="accordion-body p-4 text-muted">
+                                    <strong>Bandra West:</strong> Social center (cafés, bars, street art).<br>
+                                    <strong>Khar & Santacruz:</strong> Quieter, upscale residential zones.<br>
+                                    <strong>Juhu:</strong> Beachfront, relaxed, and affluent.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item border-0">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed fs-5 fw-bold py-4" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAndheri">
+                                    Andheri
+                                </button>
+                            </h2>
+                            <div id="collapseAndheri" class="accordion-collapse collapse">
+                                <div class="accordion-body p-4 text-muted">
+                                    Big and busy. <strong>Andheri West</strong> has food, nightlife, and media energy. <strong>Andheri East</strong> is functional, close to office parks and airport.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 8. Connect -->
+                <section id="connect" class="mb-5 text-center py-5 bg-dark text-white rounded-5 shadow-lg mt-5">
+                    <h2 class="mb-4 text-white fw-bold display-6">{{ m.icon('people') }} Connect & Collaborate</h2>
+                    <p class="lead text-white-50 px-4">Contribute to the City Guide! Share your local tips and help fellow attendees navigate the city.</p>
+                    <div class="d-grid gap-3 d-sm-flex justify-content-sm-center mt-4">
+                        <a href="https://t.me/devcon" target="_blank" class="btn btn-outline-light btn-lg px-5 py-3 rounded-pill fw-bold">Join Telegram</a>
+                    </div>
+                    <p class="mt-5 mb-0 display-4 opacity-75">Namaste 🇮🇳</p>
+                </section>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    :root {
+        --cinematic-accent: #c9a227; /* Bronze/Gold */
+    }
+    .cinematic-title {
+        font-weight: 800;
+        letter-spacing: -2px;
+        background: linear-gradient(to right, var(--bs-primary), var(--bs-info));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 0.5rem;
+    }
+    .cinematic-header {
+        font-weight: 700;
+        color: var(--bs-body-color);
+        position: relative;
+        padding-bottom: 15px;
+        margin-top: 3rem;
+    }
+    .cinematic-header::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 60px;
+        height: 4px;
+        background: var(--bs-primary);
+        border-radius: 2px;
+    }
+    .guide-nav .nav-link {
+        color: var(--bs-secondary-color);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        border-radius: 12px;
+        padding: 10px 15px;
+        font-weight: 500;
+    }
+    .guide-nav .nav-link:hover {
+        background-color: var(--bs-light);
+        color: var(--bs-primary);
+        transform: translateX(5px);
+    }
+    .guide-nav .nav-link.active {
+        background-color: var(--bs-primary);
+        color: white;
+        box-shadow: 0 4px 12px rgba(var(--bs-primary-rgb), 0.3);
+    }
+    .cinematic-img {
+        transition: transform 0.5s ease;
+        object-fit: cover;
+        max-height: 400px;
+        width: 100%;
+    }
+    .cinematic-img:hover {
+        transform: scale(1.02);
+    }
+    .guide-content {
+        line-height: 1.7;
+    }
+    section {
+        scroll-margin-top: 100px;
+    }
+    .accordion-button:not(.collapsed) {
+        background-color: var(--bs-primary-bg-subtle);
+        color: var(--bs-primary);
+    }
+    .accordion-button:focus {
+        box-shadow: none;
+        border-color: rgba(0,0,0,.125);
+    }
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const scrollSpy = new bootstrap.ScrollSpy(document.body, {
+        target: '#guide-toc',
+        smoothScroll: true
+    });
+});
+</script>
+{% endblock %}
