@@ -44,17 +44,29 @@ export MYSQL_PORT=${MYSQL_PORT:-${MYSQLPORT:-${DB_PORT:-3306}}}
 
  
 
-# Generate config.php to guarantee database credentials and port are correctly mapped
-echo "Generating config/config.php with database credentials..."
+# Generate config.php to guarantee database and mail credentials are correctly mapped
+echo "Generating config/config.php..."
 php -r "
 \$config = [
     'database' => [
         'driver'   => 'mysql',
-        'host'     => getenv('MYSQL_HOST'),
-        'port'     => getenv('MYSQL_PORT'),
-        'database' => getenv('MYSQL_DATABASE'),
-        'username' => getenv('MYSQL_USER'),
-        'password' => getenv('MYSQL_PASSWORD'),
+        'host'     => getenv('MYSQL_HOST') ?: 'localhost',
+        'port'     => getenv('MYSQL_PORT') ?: '3306',
+        'database' => getenv('MYSQL_DATABASE') ?: 'engelsystem',
+        'username' => getenv('MYSQL_USER') ?: 'root',
+        'password' => getenv('MYSQL_PASSWORD') ?: '',
+    ],
+    'email' => [
+        'driver'   => getenv('MAIL_DRIVER') ?: (getenv('MAIL_HOST') ? 'smtp' : 'log'),
+        'from'     => [
+            'address' => getenv('MAIL_FROM_ADDRESS') ?: 'noreply@' . (getenv('RAILWAY_STATIC_URL') ?: 'localhost'),
+            'name'    => getenv('MAIL_FROM_NAME') ?: getenv('APP_NAME') ?: 'Engelsystem',
+        ],
+        'host'     => getenv('MAIL_HOST') ?: 'localhost',
+        'port'     => getenv('MAIL_PORT') ?: 587,
+        'tls'      => (getenv('MAIL_TLS') ?: getenv('MAIL_ENCRYPTION')) == 'tls' || getenv('MAIL_PORT') == '465' || getenv('MAIL_TLS') == 'true',
+        'username' => getenv('MAIL_USERNAME') ?: '',
+        'password' => getenv('MAIL_PASSWORD') ?: '',
     ]
 ];
 file_put_contents('/var/www/config/config.php', '<?php return ' . var_export(\$config, true) . ';');

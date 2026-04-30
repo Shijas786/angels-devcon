@@ -23,6 +23,7 @@ This specific fork has been heavily customized for ETH DevCon Mumbai 2026:
   - Global Configuration overrides
   - Standard Angel Types (Registration, Stage Tech, Info Desk, Workshop Support)
   - Pre-filled sample shifts for all 4 days.
+- **Mumbai City Guide:** A comprehensive guide for volunteers is integrated directly at `/guide`, covering visas, neighborhoods, safety, and local tips.
 - **MySQL Strict Mode Fix:** `ONLY_FULL_GROUP_BY` is disabled session-wide to support legacy aggregate queries without crashing under Railway's default strict MySQL 8.0 settings.
 
 ## 📚 Angel Guide
